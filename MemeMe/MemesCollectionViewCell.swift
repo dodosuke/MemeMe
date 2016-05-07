@@ -1,5 +1,5 @@
 //
-//  MemesCollectionCell.swift
+//  MemesCollectionViewCell.swift
 //  MemeMe
 //
 //  Created by Keisuke Kishida on 5/7/16.
@@ -8,3 +8,9 @@
 
 import Foundation
 import UIKit
+
+class MemesCollectionViewCell: UICollectionViewCell {
+    
+    @IBOutlet weak var memedImageView: UIImageView!
+    
+}

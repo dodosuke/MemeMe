@@ -7,3 +7,13 @@
 //
 
 import Foundation
+import UIKit
+
+class SentMemesTableViewController: UITableViewController {
+    
+    var memes: [Meme] {
+        return (UIApplication.sharedApplication().delegate as! AppDelegate).memes
+    }
+    
+    
+}

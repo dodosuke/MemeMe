@@ -1,5 +1,5 @@
 //
-//  MemeSettings.swift
+//  Meme.swift
 //  MemeMe
 //
 //  Created by Keisuke Kishida on 5/4/16.
