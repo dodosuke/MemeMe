@@ -43,6 +43,5 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     var memes = [Meme]()
 
-
 }
 

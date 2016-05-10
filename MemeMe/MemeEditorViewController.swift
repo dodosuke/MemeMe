@@ -59,6 +59,8 @@ class MemeEditorViewController: UIViewController, UIImagePickerControllerDelegat
         
         super.viewWillAppear(animated)
         
+        self.tabBarController?.tabBar.hidden = true
+        
         pickButton.enabled = UIImagePickerController.isSourceTypeAvailable(UIImagePickerControllerSourceType.PhotoLibrary)
         cameraButton.enabled = UIImagePickerController.isSourceTypeAvailable(UIImagePickerControllerSourceType.Camera)
         shareButton.enabled = imageLoaded
@@ -108,6 +110,7 @@ class MemeEditorViewController: UIViewController, UIImagePickerControllerDelegat
         let memedImage = UIImage(CGImage: CGImageCreateWithImageInRect(screenImage.CGImage, cropRect)!)
     
         let meme = Meme(topText: topText, bottomText: bottomText, image: image, memedImage: memedImage)
+        
         return meme
         
     }
@@ -119,9 +122,14 @@ class MemeEditorViewController: UIViewController, UIImagePickerControllerDelegat
         let meme = Meme(topText: meme.topText, bottomText: meme.bottomText, image: meme.image, memedImage: meme.memedImage)
         
         // Add it to the memes array in the Application Delegate
-        let object = UIApplication.sharedApplication().delegate
-        let appDelegate = object as! AppDelegate
+        
+        let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
         appDelegate.memes.append(meme)
+        
+//        let defaults = NSUserDefaults.standardUserDefaults()
+//        defaults.setObject(appDelegate.memes.count, forKey: <#T##String#>)
+//        print(appDelegate.memes.count)
+
         
     }
     
@@ -209,6 +217,7 @@ class MemeEditorViewController: UIViewController, UIImagePickerControllerDelegat
         NSNotificationCenter.defaultCenter().removeObserver(self, name: UIKeyboardWillHideNotification, object: nil)
         
     }
+    
     
 }
 
