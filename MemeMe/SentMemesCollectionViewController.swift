@@ -6,13 +6,12 @@
 //  Copyright © 2016 kishidak. All rights reserved.
 //
 
-import Foundation
 import UIKit
 
 class SentMemesCollectionViewController: UICollectionViewController {
     
     @IBOutlet weak var flowLayout: UICollectionViewFlowLayout!
-    
+
     var memes: [Meme] = (UIApplication.sharedApplication().delegate as! AppDelegate).memes
     
     override func viewDidLoad() {
@@ -22,6 +21,7 @@ class SentMemesCollectionViewController: UICollectionViewController {
         let dimension = (self.view.frame.size.width - (2 * space)) / 3.0
         
         flowLayout.minimumInteritemSpacing = space
+        flowLayout.minimumLineSpacing = space
         flowLayout.itemSize = CGSizeMake(dimension, dimension)
         
     }
@@ -29,25 +29,29 @@ class SentMemesCollectionViewController: UICollectionViewController {
     override func viewWillAppear(animated: Bool) {
         
         super.viewWillAppear(animated)
-        self.tabBarController?.tabBar.hidden = false
         
         memes = (UIApplication.sharedApplication().delegate as! AppDelegate).memes
-        print("viewwillapear", memes.count)
         
     }
     
+    override func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        
+        return self.memes.count
+    
+    }
     
     override func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
         
         let cell = collectionView.dequeueReusableCellWithReuseIdentifier("MemesCollectionViewCell", forIndexPath: indexPath) as! MemesCollectionViewCell
         let meme = memes[indexPath.item]
+        
         let imageView = UIImageView(image: meme.image)
         cell.backgroundView = imageView
         
-        print("2/", memes.count)
-        
         return cell
     }
+    
+//    Call the memeviewer
     
     override func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath:NSIndexPath) {
         
@@ -57,6 +61,8 @@ class SentMemesCollectionViewController: UICollectionViewController {
 
         
     }
+    
+//    Call the memeeditor
     
     @IBAction func addMeme(sender: AnyObject) {
         

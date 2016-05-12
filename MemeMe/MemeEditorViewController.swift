@@ -40,18 +40,6 @@ class MemeEditorViewController: UIViewController, UIImagePickerControllerDelegat
         initializeTextFields(bottomText, placeholder: "BOTTOM")
         
     }
-
-//    For initializing text fields
-    
-    func initializeTextFields(textField: UITextField, placeholder: String) {
-        
-        textField.delegate = self
-        textField.defaultTextAttributes = memeTextAttributes
-        textField.textAlignment = NSTextAlignment.Center
-        textField.placeholder = placeholder
-        
-    }
-    
     
 //    Switch enabling buttons
     
@@ -64,6 +52,25 @@ class MemeEditorViewController: UIViewController, UIImagePickerControllerDelegat
         pickButton.enabled = UIImagePickerController.isSourceTypeAvailable(UIImagePickerControllerSourceType.PhotoLibrary)
         cameraButton.enabled = UIImagePickerController.isSourceTypeAvailable(UIImagePickerControllerSourceType.Camera)
         shareButton.enabled = imageLoaded
+        
+    }
+    
+    override func viewWillDisappear(animated: Bool) {
+        
+        super.viewWillDisappear(animated)
+        self.tabBarController?.tabBar.hidden = false
+        
+    }
+    
+    
+//    For initializing text fields
+    
+    func initializeTextFields(textField: UITextField, placeholder: String) {
+        
+        textField.delegate = self
+        textField.defaultTextAttributes = memeTextAttributes
+        textField.textAlignment = NSTextAlignment.Center
+        textField.placeholder = placeholder
         
     }
     
@@ -125,10 +132,6 @@ class MemeEditorViewController: UIViewController, UIImagePickerControllerDelegat
         
         let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
         appDelegate.memes.append(meme)
-        
-//        let defaults = NSUserDefaults.standardUserDefaults()
-//        defaults.setObject(appDelegate.memes.count, forKey: <#T##String#>)
-//        print(appDelegate.memes.count)
 
         
     }

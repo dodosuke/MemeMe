@@ -12,16 +12,10 @@ class SentMemesTableViewController: UITableViewController {
     
     var memes: [Meme] = (UIApplication.sharedApplication().delegate as! AppDelegate).memes
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
-
-    }
-    
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
         
         memes = (UIApplication.sharedApplication().delegate as! AppDelegate).memes
-        print("viewwillapear2", memes.count)
         
     }
     
@@ -43,16 +37,15 @@ class SentMemesTableViewController: UITableViewController {
         return cell
     }
     
+//  call the meme viewer and editor
+    
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         
-        //Grab the DetailVC from Storyboard
         let object: AnyObject = self.storyboard!.instantiateViewControllerWithIdentifier("MemeDetailViewController")
         let detailController = object as! MemeDetailViewController
         
-        //Populate view controller with data from the selected item
         detailController.meme = self.memes[indexPath.row]
         
-        //Present the view controller using navigation
         navigationController!.pushViewController(detailController, animated: true)
     }
     
