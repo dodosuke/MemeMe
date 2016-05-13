@@ -10,10 +10,9 @@ import UIKit
 
 class SentMemesTableViewController: UITableViewController {
     
-    var memes: [Meme]! {
-        let object = UIApplication.sharedApplication().delegate
-        let appDelegate = object as! AppDelegate
-        return appDelegate.memes
+    var memes: [Meme]!{
+        get{return (UIApplication.sharedApplication().delegate as! AppDelegate).memes}
+        set{}
     }
   
     override func viewWillAppear(animated: Bool) {
@@ -39,6 +38,17 @@ class SentMemesTableViewController: UITableViewController {
         cell.textLabel?.text = meme.topText + " " + meme.bottomText
         
         return cell
+    }
+    
+    override func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
+        return true
+    }
+    
+    override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
+        if editingStyle == .Delete {
+            (UIApplication.sharedApplication().delegate as! AppDelegate).memes.removeAtIndex(indexPath.row)
+            tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Fade)
+        }
     }
 
 

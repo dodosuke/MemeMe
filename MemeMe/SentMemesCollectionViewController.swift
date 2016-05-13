@@ -12,10 +12,8 @@ class SentMemesCollectionViewController: UICollectionViewController {
     
     @IBOutlet weak var flowLayout: UICollectionViewFlowLayout!
 
-    var memes: [Meme]! {
-        let object = UIApplication.sharedApplication().delegate
-        let appDelegate = object as! AppDelegate
-        return appDelegate.memes
+    var memes: [Meme]!{
+        return (UIApplication.sharedApplication().delegate as! AppDelegate).memes
     }
     
     override func viewDidLoad() {

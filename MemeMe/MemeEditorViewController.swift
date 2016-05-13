@@ -46,7 +46,6 @@ class MemeEditorViewController: UIViewController, UIImagePickerControllerDelegat
     override func viewWillAppear(animated: Bool) {
         
         super.viewWillAppear(animated)
-        
         self.tabBarController?.tabBar.hidden = true
         
         pickButton.enabled = UIImagePickerController.isSourceTypeAvailable(UIImagePickerControllerSourceType.PhotoLibrary)
