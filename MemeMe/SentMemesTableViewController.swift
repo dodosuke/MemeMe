@@ -10,25 +10,29 @@ import UIKit
 
 class SentMemesTableViewController: UITableViewController {
     
-    var memes: [Meme] = (UIApplication.sharedApplication().delegate as! AppDelegate).memes
-    
+    var memes: [Meme]! {
+        let object = UIApplication.sharedApplication().delegate
+        let appDelegate = object as! AppDelegate
+        return appDelegate.memes
+    }
+  
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
         
-        memes = (UIApplication.sharedApplication().delegate as! AppDelegate).memes
+        tableView?.reloadData()
         
     }
     
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
         return self.memes.count
-    
+        
     }
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         
         let cell = tableView.dequeueReusableCellWithIdentifier("tableViewCell", forIndexPath: indexPath)
-        let meme = self.memes[indexPath.row]
+        let meme = memes[indexPath.row]
         
         // Set the name and image
         cell.imageView?.image = meme.memedImage
@@ -36,6 +40,8 @@ class SentMemesTableViewController: UITableViewController {
         
         return cell
     }
+
+
     
 //  call the meme viewer and editor
     
