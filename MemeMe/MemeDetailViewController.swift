@@ -13,13 +13,14 @@ class MemeDetailViewController : UIViewController {
     
     @IBOutlet weak var imageView: UIImageView!
     
-    var meme: Meme!
+    var index: Int!
+    let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
         
         self.tabBarController?.tabBar.hidden = true
-        self.imageView!.image = meme.memedImage
+        self.imageView!.image = appDelegate.memes[index].memedImage
         self.imageView.contentMode = .ScaleAspectFit
         
     }
@@ -30,4 +31,14 @@ class MemeDetailViewController : UIViewController {
         self.tabBarController?.tabBar.hidden = false
         
     }
+        
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        let memeEditorVC: MemeEditorViewController = segue.destinationViewController as! MemeEditorViewController
+        memeEditorVC.topTextForEdit = appDelegate.memes[index].topText
+        memeEditorVC.bottomTextForEdit = appDelegate.memes[index].bottomText
+        memeEditorVC.imageForEdit = appDelegate.memes[index].image
+        memeEditorVC.index = index
+    }
+    
+    
 }

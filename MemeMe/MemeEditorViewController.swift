@@ -22,7 +22,14 @@ class MemeEditorViewController: UIViewController, UIImagePickerControllerDelegat
     
     
     var imageLoaded: Bool = false  // for enabling the sharing button
+
+//    For passing data from MemeDetailVC
+    var topTextForEdit: String?
+    var bottomTextForEdit: String?
+    var imageForEdit: UIImage?
+    var index: Int?
     
+//    meme's font setting
     let memeTextAttributes = [
         NSForegroundColorAttributeName: UIColor.whiteColor(),
         NSStrokeColorAttributeName: UIColor.blackColor(),
@@ -39,15 +46,19 @@ class MemeEditorViewController: UIViewController, UIImagePickerControllerDelegat
         initializeTextFields(topText, placeholder: "TOP")
         initializeTextFields(bottomText, placeholder: "BOTTOM")
         
+//    Loading data from MemeDetailVC
+        topText.text = topTextForEdit
+        bottomText.text = bottomTextForEdit
+        imagePickerView.image = imageForEdit
+        
     }
-    
-//    Switch enabling buttons
     
     override func viewWillAppear(animated: Bool) {
         
         super.viewWillAppear(animated)
         self.tabBarController?.tabBar.hidden = true
-        
+
+//    Switch enabling buttons
         pickButton.enabled = UIImagePickerController.isSourceTypeAvailable(UIImagePickerControllerSourceType.PhotoLibrary)
         cameraButton.enabled = UIImagePickerController.isSourceTypeAvailable(UIImagePickerControllerSourceType.Camera)
         shareButton.enabled = imageLoaded
@@ -58,6 +69,11 @@ class MemeEditorViewController: UIViewController, UIImagePickerControllerDelegat
         
         super.viewWillDisappear(animated)
         self.tabBarController?.tabBar.hidden = false
+        
+        if index != nil {
+            let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
+            appDelegate.memes[index!] = generateMemedImage()
+        }
         
     }
     

@@ -34,7 +34,7 @@ class SentMemesTableViewController: UITableViewController {
         let meme = memes[indexPath.row]
         
         // Set the name and image
-        cell.imageView?.image = meme.memedImage
+        cell.imageView?.image = meme.image
         cell.textLabel?.text = meme.topText + " " + meme.bottomText
         
         return cell
@@ -60,8 +60,7 @@ class SentMemesTableViewController: UITableViewController {
         let object: AnyObject = self.storyboard!.instantiateViewControllerWithIdentifier("MemeDetailViewController")
         let detailController = object as! MemeDetailViewController
         
-        detailController.meme = self.memes[indexPath.row]
-        
+        detailController.index = indexPath.row
         navigationController!.pushViewController(detailController, animated: true)
     }
     
