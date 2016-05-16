@@ -30,7 +30,7 @@ class FontSelectViewController: UIViewController, UIPickerViewDelegate, UIPicker
         fontViewer.textAlignment = NSTextAlignment.Center
         
     }
-    
+ 
 //    Font Selector
     
     func numberOfComponentsInPickerView(pickerView: UIPickerView) -> Int {
@@ -60,7 +60,7 @@ class FontSelectViewController: UIViewController, UIPickerViewDelegate, UIPicker
     @IBAction func doneFontSelection(sender: AnyObject) {
         
         let editController = storyboard!.instantiateViewControllerWithIdentifier("MemeEditorViewController") as! MemeEditorViewController
-        editController.memeTextAttributes = memeTextAttributes
+        editController.memeTextAttributesForEdit = memeTextAttributes
         dismissViewControllerAnimated(true, completion: nil)
         
     }

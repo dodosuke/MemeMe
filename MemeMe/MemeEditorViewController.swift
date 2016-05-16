@@ -26,6 +26,7 @@ class MemeEditorViewController: UIViewController, UIImagePickerControllerDelegat
 //    For passing data from MemeDetailVC
     var topTextForEdit: String?
     var bottomTextForEdit: String?
+    var memeTextAttributesForEdit: [String: NSObject]?
     var imageForEdit: UIImage?
     var index: Int?
     
@@ -55,6 +56,14 @@ class MemeEditorViewController: UIViewController, UIImagePickerControllerDelegat
         cameraButton.enabled = UIImagePickerController.isSourceTypeAvailable(UIImagePickerControllerSourceType.Camera)
         shareButton.enabled = imageLoaded
         
+        if memeTextAttributesForEdit != nil {
+            memeTextAttributes = memeTextAttributesForEdit!
+            topText.defaultTextAttributes = memeTextAttributesForEdit!
+            topText.textAlignment = .Center
+            bottomText.defaultTextAttributes = memeTextAttributesForEdit!
+            bottomText.textAlignment = .Center
+        }
+    
     }
     
     override func viewWillDisappear(animated: Bool) {
@@ -75,7 +84,7 @@ class MemeEditorViewController: UIViewController, UIImagePickerControllerDelegat
     func initializeTextFields(textField: UITextField, placeholder: String) {
         
         textField.delegate = self
-        textField.defaultTextAttributes = memeTextAttributes
+        textField.defaultTextAttributes = white
         textField.textAlignment = NSTextAlignment.Center
         textField.placeholder = placeholder
         
@@ -126,6 +135,7 @@ class MemeEditorViewController: UIViewController, UIImagePickerControllerDelegat
         
         let topText = self.topText.text!
         let bottomText = self.bottomText.text!
+        let memeTextAttributes = self.memeTextAttributes
         let image = self.imagePickerView.image!
         
         //        Get a memed image
@@ -140,7 +150,7 @@ class MemeEditorViewController: UIViewController, UIImagePickerControllerDelegat
         let cropRect = CGRect(x: self.imagePickerView.frame.minX, y: self.imagePickerView.frame.minY, width: self.imagePickerView.frame.width, height: self.imagePickerView.frame.height)
         let memedImage = UIImage(CGImage: CGImageCreateWithImageInRect(screenImage.CGImage, cropRect)!)
     
-        let meme = Meme(topText: topText, bottomText: bottomText, image: image, memedImage: memedImage)
+        let meme = Meme(topText: topText, bottomText: bottomText, memeTextAttributes: memeTextAttributes, image: image, memedImage: memedImage)
         
         return meme
         
@@ -150,7 +160,7 @@ class MemeEditorViewController: UIViewController, UIImagePickerControllerDelegat
     
     func save(meme: Meme) {
         
-        let meme = Meme(topText: meme.topText, bottomText: meme.bottomText, image: meme.image, memedImage: meme.memedImage)
+        let meme = Meme(topText: meme.topText, bottomText: meme.bottomText, memeTextAttributes: meme.memeTextAttributes, image: meme.image, memedImage: meme.memedImage)
         
         // Add it to the memes array in the Application Delegate
         

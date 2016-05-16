@@ -13,7 +13,7 @@ struct Meme {
         
     var topText: String
     var bottomText: String
-//    var memeTextAttributes: [String: NSObject]
+    var memeTextAttributes: [String: NSObject]
     var image: UIImage
     var memedImage: UIImage
             
@@ -23,21 +23,21 @@ var white: [String: NSObject] = [
     NSForegroundColorAttributeName: UIColor.whiteColor(),
     NSStrokeColorAttributeName: UIColor.blackColor(),
     NSFontAttributeName: UIFont(name: "HelveticaNeue-CondensedBlack", size: 40)!,
-    NSStrokeWidthAttributeName : -6.0,
+    NSStrokeWidthAttributeName : -6.0
 ]
 
 var yellow: [String: NSObject] = [
     NSForegroundColorAttributeName: UIColor.yellowColor(),
     NSStrokeColorAttributeName: UIColor.blackColor(),
     NSFontAttributeName: UIFont(name: "HelveticaNeue-CondensedBlack", size: 40)!,
-    NSStrokeWidthAttributeName : -6.0,
+    NSStrokeWidthAttributeName : -6.0
 ]
 
 var red: [String: NSObject] = [
     NSForegroundColorAttributeName: UIColor.redColor(),
     NSStrokeColorAttributeName: UIColor.blackColor(),
     NSFontAttributeName: UIFont(name: "HelveticaNeue-CondensedBlack", size: 40)!,
-    NSStrokeWidthAttributeName : -6.0,
+    NSStrokeWidthAttributeName : -6.0
 ]
 
 

@@ -37,6 +37,7 @@ class MemeDetailViewController : UIViewController {
         let editController = storyboard!.instantiateViewControllerWithIdentifier("MemeEditorViewController") as! MemeEditorViewController
         editController.topTextForEdit = appDelegate.memes[index].topText
         editController.bottomTextForEdit = appDelegate.memes[index].bottomText
+        editController.memeTextAttributesForEdit = appDelegate.memes[index].memeTextAttributes
         editController.imageForEdit = appDelegate.memes[index].image
         editController.index = index
         

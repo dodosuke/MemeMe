@@ -59,7 +59,6 @@ class SentMemesTableViewController: UITableViewController {
         
         let object: AnyObject = storyboard!.instantiateViewControllerWithIdentifier("MemeDetailViewController")
         let detailController = object as! MemeDetailViewController
-        
         detailController.index = indexPath.row
         navigationController!.pushViewController(detailController, animated: true)
     }
