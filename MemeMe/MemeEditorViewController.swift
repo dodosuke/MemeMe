@@ -14,12 +14,12 @@ class MemeEditorViewController: UIViewController, UIImagePickerControllerDelegat
     @IBOutlet weak var cameraButton: UIBarButtonItem!
     @IBOutlet weak var pickButton: UIBarButtonItem!
     @IBOutlet weak var shareButton: UIBarButtonItem!
-    @IBOutlet weak var trashButton: UIBarButtonItem!
     
     @IBOutlet weak var imagePickerView: UIImageView!
     @IBOutlet weak var topText: UITextField!
     @IBOutlet weak var bottomText: UITextField!
     
+    var memeTextAttributes: [String: NSObject] = white
     
     var imageLoaded: Bool = false  // for enabling the sharing button
 
@@ -28,14 +28,6 @@ class MemeEditorViewController: UIViewController, UIImagePickerControllerDelegat
     var bottomTextForEdit: String?
     var imageForEdit: UIImage?
     var index: Int?
-    
-//    meme's font setting
-    let memeTextAttributes = [
-        NSForegroundColorAttributeName: UIColor.whiteColor(),
-        NSStrokeColorAttributeName: UIColor.blackColor(),
-        NSFontAttributeName: UIFont(name: "HelveticaNeue-CondensedBlack", size: 40)!,
-        NSStrokeWidthAttributeName : -6.0,
-    ]
     
     override func viewDidLoad() {
 
@@ -56,7 +48,7 @@ class MemeEditorViewController: UIViewController, UIImagePickerControllerDelegat
     override func viewWillAppear(animated: Bool) {
         
         super.viewWillAppear(animated)
-        self.tabBarController?.tabBar.hidden = true
+        tabBarController?.tabBar.hidden = true
 
 //    Switch enabling buttons
         pickButton.enabled = UIImagePickerController.isSourceTypeAvailable(UIImagePickerControllerSourceType.PhotoLibrary)
@@ -89,7 +81,24 @@ class MemeEditorViewController: UIViewController, UIImagePickerControllerDelegat
         
     }
     
-
+//    Cancel editing
+    
+    @IBAction func cancel(sender: AnyObject) {
+        
+        dismissViewControllerAnimated(true, completion: nil)
+        
+    }
+    
+//    Call Font Selector
+    @IBAction func selectFont(sender: AnyObject) {
+        
+        let fontSelector = storyboard!.instantiateViewControllerWithIdentifier("FontSelectViewController") as! FontSelectViewController
+        fontSelector.memeTextAttributes = memeTextAttributes
+        presentViewController(fontSelector, animated: true, completion: nil)
+        
+    }
+    
+    
 //    Managing an image
     
     @IBAction func pickAnImageFromAlbum(sender: AnyObject) {pickAnImage(.PhotoLibrary)}
@@ -154,41 +163,13 @@ class MemeEditorViewController: UIViewController, UIImagePickerControllerDelegat
         
         let meme = generateMemedImage()
         let activityVC = UIActivityViewController(activityItems: [meme.memedImage], applicationActivities: nil)
-        self.presentViewController(activityVC, animated: true, completion: nil)
+        presentViewController(activityVC, animated: true, completion: nil)
         activityVC.completionWithItemsHandler = {(activityType, completed: Bool, returnedItems: [AnyObject]?, error: NSError?) in
             if completed {
                 self.save(meme)
                 self.dismissViewControllerAnimated(true, completion: nil)
             }
         }
-    }
-
-//    Alert for refreshing the memed image
-    
-    @IBAction func trash(sender: AnyObject) {
-        
-        let alertController = UIAlertController(title: "Refreshing the Meme", message: "For Sure?", preferredStyle: .Alert)
-        let okAction = UIAlertAction(title: "OK", style: UIAlertActionStyle.Default) {
-            action in self.initializeMeme()
-        }
-        let cancelAction = UIAlertAction(title: "CANCEL", style: UIAlertActionStyle.Cancel) {
-            action in self.dismissViewControllerAnimated(true, completion: nil)
-        }
-        
-        alertController.addAction(okAction)
-        alertController.addAction(cancelAction)
-        self.presentViewController(alertController, animated: true, completion: nil)
-        
-    }
-    
-    func initializeMeme() {
-        
-        self.topText.text = nil
-        self.bottomText.text = nil
-        self.imagePickerView.image = nil
-        self.imageLoaded = false
-        shareButton.enabled = false
-    
     }
     
     

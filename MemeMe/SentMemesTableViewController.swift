@@ -24,7 +24,7 @@ class SentMemesTableViewController: UITableViewController {
     
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
-        return self.memes.count
+        return memes.count
         
     }
     
@@ -57,7 +57,7 @@ class SentMemesTableViewController: UITableViewController {
     
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         
-        let object: AnyObject = self.storyboard!.instantiateViewControllerWithIdentifier("MemeDetailViewController")
+        let object: AnyObject = storyboard!.instantiateViewControllerWithIdentifier("MemeDetailViewController")
         let detailController = object as! MemeDetailViewController
         
         detailController.index = indexPath.row
@@ -66,8 +66,8 @@ class SentMemesTableViewController: UITableViewController {
     
     @IBAction func addMeme(sender: AnyObject) {
         
-        let editController = self.storyboard!.instantiateViewControllerWithIdentifier("MemeEditorViewController") as! MemeEditorViewController
-        self.navigationController!.pushViewController(editController, animated: true)
+        let editController = storyboard!.instantiateViewControllerWithIdentifier("MemeEditorViewController") as! MemeEditorViewController
+         presentViewController(editController, animated: true, completion: nil)
         
     }
     

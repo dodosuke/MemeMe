@@ -19,26 +19,29 @@ class MemeDetailViewController : UIViewController {
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
         
-        self.tabBarController?.tabBar.hidden = true
-        self.imageView!.image = appDelegate.memes[index].memedImage
-        self.imageView.contentMode = .ScaleAspectFit
+        tabBarController?.tabBar.hidden = true
+        imageView!.image = appDelegate.memes[index].memedImage
+        imageView.contentMode = .ScaleAspectFit
         
     }
     
     override func viewWillDisappear(animated: Bool) {
         
         super.viewWillDisappear(animated)
-        self.tabBarController?.tabBar.hidden = false
+        tabBarController?.tabBar.hidden = false
         
-    }
-        
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        let memeEditorVC: MemeEditorViewController = segue.destinationViewController as! MemeEditorViewController
-        memeEditorVC.topTextForEdit = appDelegate.memes[index].topText
-        memeEditorVC.bottomTextForEdit = appDelegate.memes[index].bottomText
-        memeEditorVC.imageForEdit = appDelegate.memes[index].image
-        memeEditorVC.index = index
     }
     
+    @IBAction func editMeme(sender: AnyObject) {
+        
+        let editController = storyboard!.instantiateViewControllerWithIdentifier("MemeEditorViewController") as! MemeEditorViewController
+        editController.topTextForEdit = appDelegate.memes[index].topText
+        editController.bottomTextForEdit = appDelegate.memes[index].bottomText
+        editController.imageForEdit = appDelegate.memes[index].image
+        editController.index = index
+        
+        presentViewController(editController, animated: true, completion: nil)
+        
+    }
     
 }
