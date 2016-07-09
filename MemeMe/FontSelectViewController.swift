@@ -9,6 +9,10 @@
 import Foundation
 import UIKit
 
+protocol DataEnteredDelegate: class {
+    func userDidEnterInformation(info: [String: NSObject])
+}
+
 class FontSelectViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource, UITextFieldDelegate {
     
     //    Font selection
@@ -16,6 +20,7 @@ class FontSelectViewController: UIViewController, UIPickerViewDelegate, UIPicker
     let fonts: NSArray = ["White","Yellow","Red"]
     
     @IBOutlet weak var fontViewer: UITextField!
+    weak var delegate: DataEnteredDelegate? = nil
     
     var memeTextAttributes: [String: NSObject]!
     
@@ -59,10 +64,11 @@ class FontSelectViewController: UIViewController, UIPickerViewDelegate, UIPicker
     
     @IBAction func doneFontSelection(sender: AnyObject) {
         
-        let editController = storyboard!.instantiateViewControllerWithIdentifier("MemeEditorViewController") as! MemeEditorViewController
-        editController.memeTextAttributesForEdit = memeTextAttributes
+        delegate?.userDidEnterInformation(memeTextAttributes)
         dismissViewControllerAnimated(true, completion: nil)
         
     }
+    
+
     
 }

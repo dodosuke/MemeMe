@@ -8,7 +8,7 @@
 
 import UIKit
 
-class MemeEditorViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UITextFieldDelegate {
+class MemeEditorViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UITextFieldDelegate, DataEnteredDelegate {
     
 
     @IBOutlet weak var cameraButton: UIBarButtonItem!
@@ -56,6 +56,7 @@ class MemeEditorViewController: UIViewController, UIImagePickerControllerDelegat
         cameraButton.enabled = UIImagePickerController.isSourceTypeAvailable(UIImagePickerControllerSourceType.Camera)
         shareButton.enabled = imageLoaded
         
+        print(memeTextAttributesForEdit)
         if memeTextAttributesForEdit != nil {
             memeTextAttributes = memeTextAttributesForEdit!
             topText.defaultTextAttributes = memeTextAttributesForEdit!
@@ -105,6 +106,18 @@ class MemeEditorViewController: UIViewController, UIImagePickerControllerDelegat
         fontSelector.memeTextAttributes = memeTextAttributes
         presentViewController(fontSelector, animated: true, completion: nil)
         
+    }
+    
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        if segue.identifier == "FontSelectViewController" {
+            let fontSelectViewController = segue.destinationViewController as! FontSelectViewController
+            fontSelectViewController.delegate = self
+        }
+    }
+    
+    func userDidEnterInformation(info: [String:NSObject]) {
+        print(info)
+        memeTextAttributesForEdit = info
     }
     
     
